@@ -10,6 +10,11 @@ public class GradeRange {
         maxGrade = 0;
     }
 
+    public GradeRange(int minGrade, int maxGrade){
+        this.minGrade = minGrade;
+        this.maxGrade = maxGrade;
+    }
+
     public int getMinGrade() {return minGrade;}
     public void setMinGrade(int minGrade) {this.minGrade = minGrade;}
     
