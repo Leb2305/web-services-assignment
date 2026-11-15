@@ -18,6 +18,13 @@ public class Booking {
         this.slot = slot;
     }
 
+    public Booking(Booking that){
+        this.matric = that.matric;
+        this.name = that.name;
+        this.instrument = that.instrument;
+        this.slot = that.slot;
+    }
+
     public int getMatric() {return matric;}
     public void setMatric(int matric) {this.matric = matric;}
 

@@ -12,6 +12,8 @@ public class Tutor {
 
     public Tutor(String name) {this.name = name;}
 
+    public Tutor(Tutor that) {this.name = that.name;}
+
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
 

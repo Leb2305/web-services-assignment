@@ -17,6 +17,11 @@ public class LessonSlot {
         this.startTime = startTime;
     }
 
+    public LessonSlot(LessonSlot that){
+        this.day = that.day;
+        this.startTime = that.startTime;
+    }
+
     public DayOfWeek getDay(){return day;}
     public void setDay(DayOfWeek day) {this.day = day;}
 
