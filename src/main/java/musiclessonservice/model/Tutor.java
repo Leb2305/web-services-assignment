@@ -6,7 +6,7 @@ import java.util.Map;
 public class Tutor {
 
     private String name;
-    private Map<String,GradeRange> instruments = new HashMap<>();
+    private Map<String, InstrumentGrades> instruments = new HashMap<>();
 
     public Tutor() {name = "_";}
 
@@ -17,12 +17,12 @@ public class Tutor {
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
 
-    public Map<String, GradeRange> getInstruments() {return instruments;}
-    public void setInstruments(Map<String, GradeRange>instruments) {this.instruments = instruments;}
+    public Map<String, InstrumentGrades> getInstruments() {return instruments;}
+    public void setInstruments(Map<String,InstrumentGrades>instruments) {this.instruments = instruments;}
 
     public boolean teaches(String instrument, int grade){
 
-        GradeRange range = getInstruments().get(instrument);
+        InstrumentGrades range = getInstruments().get(instrument);
 
         if (range == null){
             return false;

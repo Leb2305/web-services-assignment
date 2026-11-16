@@ -8,7 +8,6 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
 
 import musiclessonservice.model.LessonSlot;
 

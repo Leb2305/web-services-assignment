@@ -11,7 +11,7 @@ public class TutorTest {
     @Test 
     public void teachesWithPianoRange(){
         Tutor tutor = new Tutor("Bob Dylan");
-        GradeRange pianoRange = new GradeRange(3, 7);
+        InstrumentGrades pianoRange = new InstrumentGrades(3,7);
 
         tutor.getInstruments().put("piano", pianoRange);
 

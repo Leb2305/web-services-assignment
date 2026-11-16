@@ -12,7 +12,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import musiclessonservice.model.Booking;
-import musiclessonservice.model.GradeRange;
+import musiclessonservice.model.InstrumentGrades;
 import musiclessonservice.model.LessonSlot;
 import musiclessonservice.model.Tutor;
 
@@ -29,9 +29,9 @@ public class MusicLessonServiceImpl implements MusicLessonService {
 
     public MusicLessonServiceImpl (){
         tutor = new Tutor("Eric Clapton");
-        tutor.getInstruments().put("piano", new GradeRange(1,6));
-        tutor.getInstruments().put("drums", new GradeRange(1,5));
-        tutor.getInstruments().put("e guitar", new GradeRange(3,7));
+        tutor.getInstruments().put("piano", new InstrumentGrades(3,7));
+        tutor.getInstruments().put("drums", new InstrumentGrades(1,5));
+        tutor.getInstruments().put("guitar", new InstrumentGrades(3,7));
         allSlots = new ArrayList<>();
         for(int i = 1; i <= 5; i++){
             addSlotsForDay(DayOfWeek.of(i), LocalTime.of(16,00));

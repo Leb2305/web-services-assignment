@@ -8,7 +8,7 @@ public class Student {
     private int matric;
     private String name;
     private int age;
-    private Map<String, InstrumentGrade> instruments = new HashMap<>();
+    private Map<String, InstrumentGrades> instruments = new HashMap<>();
 
     public Student(){ matric = 0; name = "_"; age = 0;}
 
@@ -28,8 +28,8 @@ public class Student {
     public int getAge() {return age;}
     public void setAge(int age) {this.age = age;}
 
-    public Map<String, InstrumentGrade> getInstruments() {return instruments;}
-    public void setInstruments(Map<String, InstrumentGrade>instruments) {this.instruments = instruments;}
+    public Map<String, InstrumentGrades> getInstrument() {return instruments;}
+    public void setInstruments(Map<String, InstrumentGrades>instruments) {this.instruments = instruments;}
 
     
 }
