@@ -12,15 +12,15 @@ public class Student {
 
     public Student(){ matric = 0; name = "_"; age = 0;}
 
-    public Student(int matriculationNum, String name, int age){
-        this.matric = matriculationNum;
+    public Student(int matric, String name, int age){
+        this.matric = matric;
         this.name = name;
         this.age = age;
         
     }
 
-    public int getMatNum() {return matric;}
-    public void setMatNum(int matriculationNum) {this.matric = matriculationNum;}
+    public int getMatric() {return matric;}
+    public void setMatric(int matric) {this.matric = matric;}
 
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
@@ -28,7 +28,7 @@ public class Student {
     public int getAge() {return age;}
     public void setAge(int age) {this.age = age;}
 
-    public Map<String, InstrumentGrades> getInstrument() {return instruments;}
+    public Map<String, InstrumentGrades> getInstruments() {return instruments;}
     public void setInstruments(Map<String, InstrumentGrades>instruments) {this.instruments = instruments;}
 
     

@@ -13,16 +13,18 @@ import musiclessonservice.model.LessonSlot;
 
 public class MusicLessonServiceImplTest {
 
+    FakePupilTracker tracker = new FakePupilTracker();
+
     @Test 
     public void weekHas62Slots(){
-        MusicLessonServiceImpl service = new MusicLessonServiceImpl();
+        MusicLessonServiceImpl service = new MusicLessonServiceImpl(tracker);
 
         assertEquals(62, service.getAvailableSlots().size());
     }
 
     @Test
     public void slotStartTimesAndStopTimes(){
-        MusicLessonServiceImpl service = new MusicLessonServiceImpl();
+        MusicLessonServiceImpl service = new MusicLessonServiceImpl(tracker);
         
         assertTrue(service.getAvailableSlots().contains(new LessonSlot(DayOfWeek.MONDAY,LocalTime.of(16, 00))));
         assertTrue(service.getAvailableSlots().contains(new LessonSlot(DayOfWeek.MONDAY,LocalTime.of(19, 30))));

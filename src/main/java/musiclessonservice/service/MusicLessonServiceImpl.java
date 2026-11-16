@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-
+import org.springframework.web.server.ResponseStatusException;
 import musiclessonservice.model.Booking;
 import musiclessonservice.model.InstrumentGrades;
 import musiclessonservice.model.LessonSlot;
+import musiclessonservice.model.Student;
 import musiclessonservice.model.Tutor;
 
 @Component 
@@ -27,7 +28,10 @@ public class MusicLessonServiceImpl implements MusicLessonService {
 
     private Set<LessonSlot> blockedSlots;
 
-    public MusicLessonServiceImpl (){
+    private PupilTracker tracker;
+
+    public MusicLessonServiceImpl (PupilTracker tracker){
+        this.tracker = tracker;
         tutor = new Tutor("Eric Clapton");
         tutor.getInstruments().put("piano", new InstrumentGrades(3,7));
         tutor.getInstruments().put("drums", new InstrumentGrades(1,5));
@@ -67,26 +71,71 @@ public class MusicLessonServiceImpl implements MusicLessonService {
 
     @Override
     public Booking makeBooking(int matric, String name, String instrument, LessonSlot slot) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'makeBooking'");
+        Student pupil = tracker.getPupil(matric);
+        if(!isSlotAvailable(slot)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Slot is not available");
+        }
+        if(pupil == null || !pupil.getName().equals(name)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pupil not found or name doesn't match");
+        }
+        InstrumentGrades played = pupil.getInstruments().get(instrument);
+        if(played == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pupil does not play this instrument");
+        }
+        if(!tutor.teaches(instrument, played.getGrade())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The tutor does not teach this instrument at the pupils grade");
+        }
+        if(pupil.getAge() < 16 && slot.isSixPmOrLater()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pupils under 16 can't book lessons from 6pm onwards");
+        }
+        for (Booking booking : bookings.values()) {
+            if(booking.getMatric() == matric && booking.getSlot().getDay() == slot.getDay()){
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Pupil has already booked a lesson on this day (One lesson per day)");
+            }
+        }
+        Booking booked = new Booking(matric, name, instrument, slot);
+        bookings.put(new LessonSlot(slot), new Booking(booked));
+        return new Booking(booked);
+        
     }
 
     @Override
     public List<Booking> getPupilBookings(int matric, String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPupilBookings'");
+        List<Booking> results = new ArrayList<>();
+        for (Booking booking : bookings.values()) {
+            if(booking.getMatric() == matric && booking.getName().equals(name)){
+                results.add(new Booking(booking));
+            }
+        }
+        return results;
     }
 
     @Override
-    public void cancelBooking(int matric, String name, DayOfWeek day) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cancelBooking'");
+    public Booking cancelBooking(int matric, String name, DayOfWeek day) {
+        Booking found = null;
+
+        for (Booking booking : bookings.values()) {
+            if(booking.getMatric() == matric && booking.getName().equals(name) && booking.getSlot().getDay() == day){
+                found = booking;
+            }
+        }
+        if(found == null){
+            return null;
+        }
+        bookings.remove(found.getSlot());
+        return found;
+
     }
 
     @Override
     public List<Booking> getBookingsForDay(DayOfWeek day) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBookingsForDay'");
+        List<Booking> result = new ArrayList<>();
+        for (Booking booking : bookings.values()) {
+            if(booking.getSlot().getDay() == day){
+                result.add(new Booking(booking));
+            }
+        }
+        return result;
     }
 
 }

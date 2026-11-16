@@ -18,7 +18,7 @@ public interface MusicLessonService {
 
     List<Booking> getPupilBookings(int matric, String name);
 
-    void cancelBooking(int matric, String name, DayOfWeek day);
+    Booking cancelBooking(int matric, String name, DayOfWeek day);
 
     List<Booking> getBookingsForDay(DayOfWeek day);
 
