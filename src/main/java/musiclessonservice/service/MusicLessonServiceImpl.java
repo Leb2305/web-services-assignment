@@ -138,4 +138,60 @@ public class MusicLessonServiceImpl implements MusicLessonService {
         return result;
     }
 
+    @Override 
+    public boolean blockASlot(LessonSlot slot){
+        if(!allSlots.contains(slot)){
+            return false;
+        }
+        blockedSlots.add(new LessonSlot(slot));
+        return true;
+    }
+
+    @Override
+    public boolean unblockASlot(LessonSlot slot) {
+        if(!blockedSlots.contains(slot)){
+            return false;
+        }
+        return blockedSlots.remove(slot);
+    }
+
+    @Override
+    public boolean blockADay(DayOfWeek day) {
+        boolean result = false;
+
+        for (LessonSlot slots : allSlots) {
+            if(slots.getDay() == day){
+                blockedSlots.add(new LessonSlot(slots));
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean unblockADay(DayOfWeek day) {
+         boolean result = false;
+
+        for (LessonSlot lessonSlot : allSlots) {
+            if(lessonSlot.getDay() == day){
+                if(blockedSlots.remove(new LessonSlot(lessonSlot))){
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<LessonSlot> getBlockedSlots() {
+        List<LessonSlot> result = new ArrayList<>();
+        for (LessonSlot lessonSlot : allSlots) {
+            if(blockedSlots.contains(lessonSlot)){
+                result.add(new LessonSlot(lessonSlot));
+            }
+        }
+        return result;
+        
+    }
+
 }

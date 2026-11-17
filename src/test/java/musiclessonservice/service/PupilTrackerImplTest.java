@@ -12,7 +12,7 @@ public class PupilTrackerImplTest {
         PupilTrackerImpl tracker = new PupilTrackerImpl();
         Student newStudent = tracker.getPupil(875029);
         assertNotNull(newStudent);
-        assertEquals(newStudent.getName(), "Brian Stewart");
+        assertEquals("Brian Stewart",newStudent.getName());
     }
 
 }

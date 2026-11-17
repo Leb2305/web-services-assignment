@@ -22,6 +22,14 @@ public interface MusicLessonService {
 
     List<Booking> getBookingsForDay(DayOfWeek day);
 
+    boolean blockASlot(LessonSlot slot);
 
+    boolean unblockASlot(LessonSlot slot);
+
+    boolean blockADay(DayOfWeek day);
+
+    boolean unblockADay(DayOfWeek day);
+
+    List<LessonSlot> getBlockedSlots();
 
 }
