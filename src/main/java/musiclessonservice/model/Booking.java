@@ -15,7 +15,7 @@ public class Booking {
         this.matric = matric;
         this.name = name;
         this.instrument = instrument;
-        this.slot = slot;
+        this.slot = new LessonSlot(slot);
     }
 
     public Booking(Booking that){

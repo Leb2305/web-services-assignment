@@ -26,8 +26,11 @@ public class PupilTrackerImpl implements PupilTracker{
     public Student getPupil(int matric) {
         try{
             JsonNode response = client.get().uri("/pupil/{matric}", matric).retrieve().body(JsonNode.class);
+            if(response == null){
+                return null;
+            }
             JsonNode pupilNode = response.get("pupil");
-            if(response == null || pupilNode == null || pupilNode.isNull()){
+            if(pupilNode == null || pupilNode.isNull()){
                 return null;
             }
             else{
