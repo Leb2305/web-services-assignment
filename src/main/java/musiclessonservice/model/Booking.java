@@ -22,6 +22,7 @@ public class Booking {
         this.matric = that.matric;
         this.name = that.name;
         this.instrument = that.instrument;
+        this.slot = new LessonSlot(that.slot);
     }
 
     public int getMatric() {return matric;}
