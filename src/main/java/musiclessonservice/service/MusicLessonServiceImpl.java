@@ -35,7 +35,7 @@ public class MusicLessonServiceImpl implements MusicLessonService {
         tutor = new Tutor("Eric Clapton");
         tutor.getInstruments().put("piano", new InstrumentGrades(3,7));
         tutor.getInstruments().put("drums", new InstrumentGrades(1,5));
-        tutor.getInstruments().put("guitar", new InstrumentGrades(3,7));
+        tutor.getInstruments().put("oboe", new InstrumentGrades(3,7));
         allSlots = new ArrayList<>();
         for(int i = 1; i <= 5; i++){
             addSlotsForDay(DayOfWeek.of(i), LocalTime.of(16,00));
