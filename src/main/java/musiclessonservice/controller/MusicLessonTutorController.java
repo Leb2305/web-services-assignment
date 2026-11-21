@@ -27,7 +27,7 @@ public class MusicLessonTutorController {
         this.mls = mls;
     }
 
-    @GetMapping("tutor/bookings")
+    @GetMapping("/tutor/bookings")
     public List<Booking> getBookingsForDay(@RequestParam DayOfWeek day) {
         return mls.getBookingsForDay(day);
     }
